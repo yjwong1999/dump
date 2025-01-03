@@ -188,7 +188,7 @@ class Counter:
         Args:
             img_shape: the img shape
             pred_boxes: the bbox of predicted obj
-        """       
+        """
 
         # Update Detect results
         try:
@@ -245,7 +245,7 @@ class Counter:
                         json.dump(person_data, f)
      
                     command = 'python3 push.py'
-                    #run_command(command)
+                    run_command(command)
                     
         
         # clear buffer
@@ -270,4 +270,3 @@ class Counter:
             # reset
             self.current_date = now.date()
             self.reset()
-
