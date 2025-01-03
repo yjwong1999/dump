@@ -4,9 +4,20 @@
 import os
 import datetime
 import pandas as pd
+import json
+import subprocess
 
 from drive_utils.wrapper import DriveHandler
 
+def run_command(command):
+    """
+    Execute a command in the shell.
+    """
+    try:
+        subprocess.run(command, shell=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing command: {e}")
+            
 class Counter:
     def __init__(self, x1, y1, x2, y2, idx):
         """
@@ -170,14 +181,14 @@ class Counter:
             for id in remove_ids:
                 del self.buffer_out[id]                
         
-    def update(self, img_shape=None, pred_boxes=None):
+    def update(self, img_shape=None, pred_boxes=None, reid_dict=None, ref=None):
         """
         Update the total number of objects move in/out the ROI
 
         Args:
             img_shape: the img shape
             pred_boxes: the bbox of predicted obj
-        """
+        """       
 
         # Update Detect results
         try:
@@ -217,6 +228,25 @@ class Counter:
                 self.count_in += 1
                 self.move_in[id] = datetime.datetime.now()
                 del self.buffer_out[id]
+                if (reid_dict is not None) and (ref is not None):
+                    print(reid_dict[id])
+                    current_time = datetime.datetime.now()
+                    current_time = current_time + datetime.timedelta(seconds=30)
+                    current_time = current_time.strftime('%H:%M:%S')
+                    print(current_time)
+                    person_data = {
+                        'ID': '2005755',
+                        'Name': 'Allex',
+                        'Time': '13:02:35'
+                    }                    
+
+                    # Save to a JSON file
+                    with open('data.json', 'w') as f:
+                        json.dump(person_data, f)
+     
+                    command = 'python3 push.py'
+                    #run_command(command)
+                    
         
         # clear buffer
         # self.clear_buffer()
@@ -240,3 +270,4 @@ class Counter:
             # reset
             self.current_date = now.date()
             self.reset()
+
