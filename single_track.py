@@ -73,8 +73,8 @@ cap = get_cap()
 # resize your input video frame size (smaller -> faster, but less accurate)
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
-resize_width = 720   # Adjust based on your needs
-resize_height = 480  # Adjust based on your needs
+resize_width = 1280   # Adjust based on your needs
+resize_height = 720  # Adjust based on your needs
 if frame_width > 0:
     resize_height = int((resize_width / frame_width) * frame_height)
 
@@ -684,7 +684,7 @@ def predict_and_detect(chosen_model, track_history, img, classes=[], conf=0.5):
 
     # reid
     reid_dict = chosen_model.reid_manager.matching(track_ids, xyxys, img)
-    reid_dict = None
+    #reid_dict = None
 
     # visualize
     annotated_frame = results[0].plot(reid_dict)
