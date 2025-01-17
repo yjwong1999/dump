@@ -72,9 +72,16 @@ sudo snap install vlc
 ```
 
 ## Setup the source.streams file
+```
+<each line is one video source or rtsp streams link>
+...
+```
+
 
 ## Setup the geofencing.streams
-![geofencing](assets/x1y1x2y2.jpg)
+Each line should represent the corresponding geofencing zone for the video source in the `source/streams` file. The geofencing format should be <x1> <y1> <x2> <y2> in normalized format (in 0 to 1 range). Example of geofencing format is shown below:
+<img src="assets/x1y1x2y2.jpg" width="600" height="200" />
+
 
 ## Detection
 Single stream detection
