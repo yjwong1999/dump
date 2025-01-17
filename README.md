@@ -71,6 +71,11 @@ python3 find_port.py
 sudo snap install vlc
 ```
 
+## Setup the source.streams file
+
+## Setup the geofencing.streams
+![geofencing](assets/x1y1x2y2.jpg)
+
 ## Detection
 Single stream detection
 ```bash
