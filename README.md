@@ -22,6 +22,8 @@ This file lists down all video sources (one for each line). The video sources co
 - `geofencing.streams` </br>
 This file lists down all geofencing windows (one for each line) in normalized x1y1x2y2 format.
 
+- `register` </br>
+To store the faces of all users registered to the database.
 
 ## Setup
 Conda environment
