@@ -4,7 +4,24 @@ Efficient YOLOv8 inference depends not only on GPU specifications but also on CP
 
 ## System Design
 
+- `npy files` </br>
 There is a list of `.npy` files in the system. These `.npy` files consist of the embeddings of blurred or unrecognizable faces that previous FYP students have identified. These embeddings can slightly reduce the likelihood of the system misidentifying all blurry faces as a certain student's identity.
+
+- `cloudSyncExecute.sh` </br>
+This bash script execute the cloud syncing the log files from the local PC to the Google Drive.
+
+- `multi_track.py` </br>
+This code is to run the multi-tracking of the objects in the video streams.
+
+- `multi_detect.py` </br>
+This code is to run detection across all video streams.
+
+- `source.streams` </br>
+This file lists down all video sources (one for each line). The video sources could be video files or rtsp links.
+
+- `geofencing.streams` </br>
+This file lists down all geofencing windows (one for each line) in normalized x1y1x2y2 format.
+
 
 ## Setup
 Conda environment
