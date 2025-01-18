@@ -82,7 +82,7 @@ sudo snap install vlc
 
 ## Setup the geofencing.streams
 Each line should represent the corresponding geofencing zone for the video source in the `source/streams` file. The geofencing format should be <x1,y1,x2,y2> in normalized format (in 0 to 1 range), WITHOUT SPACING. Example of geofencing format is shown below:
-<img src="assets/x1y1x2y2.jpg" width="600"/> </br>
+<img src="assets/x1y1x2y2.jpg" width="700"/> </br>
 Hence, for the above geofencing zone, we should write
 ```
 0.65,0.067,0.9,0.467
