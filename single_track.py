@@ -15,7 +15,7 @@ from pathlib import Path
 import argparse
 import torch
 import torch.nn.functional as F
-import time, os
+import time, os, datetime
 
 from counter import Counter
 from boxmot.appearance.reid_multibackend import ReIDDetectMultiBackend
@@ -79,8 +79,8 @@ cap = get_cap()
 # resize your input video frame size (smaller -> faster, but less accurate)
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
-resize_width = 720   # Adjust based on your needs, suggest to 720p to improve face recognition
-resize_height = 480  # Adjust based on your needs, suggest to 720p to improve face recognition
+resize_width = 720   # Adjust based on your needs
+resize_height = 480  # Adjust based on your needs
 if frame_width > 0:
     resize_height = int((resize_width / frame_width) * frame_height)
 
@@ -265,60 +265,6 @@ def save_one_box(xyxy, im, file=Path("im.png"), gain=1.02, pad=10, square=False,
 #------------------------------------------------------------------------------------------------------
 # ReID function
 #------------------------------------------------------------------------------------------------------
-import firebase_admin
-from firebase_admin import credentials, db, firestore
-import datetime
-
-
-cred = credentials.Certificate(r'person-counting-6a93a-firebase-adminsdk-gnrt5-432ff74587.json')
-
-firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://person-counting-6a93a-default-rtdb.asia-southeast1.firebasedatabase.app/' 
-})
-
-date_str = datetime.datetime.now().strftime('%d-%m-%Y')
-ref = db.reference(date_str)
-
-db_firestore = firestore.client()
-collection_ref = db_firestore.collection('face_encodings')
-
-def read_live_database():
-    # Access Firestore    
-    db_firestore = firestore.client()
-    collection_ref = db_firestore.collection('face_encodings')
-
-    # Retrieve all documents in the collection
-    docs = collection_ref.stream()
-
-    names = []
-    feats = []
-    for doc in docs:
-        doc = doc.to_dict()
-        id = doc['student_id']
-        name = doc['name']
-        id_name = f'{id}-{name.split()[0]}'    
-        
-        enc_1 = doc['encoding_center']
-        enc_2 = doc['encoding_right']
-        enc_3 = doc['encoding_left']
-        encs = [enc_1, enc_2, enc_3]
-        '''
-        print(id, name, id_name)
-        print(enc_1)
-        print(enc_2)
-        print(enc_3)
-        print()   
-        '''
-        for enc in encs:
-            if enc is not None:
-                enc = np.array([enc])
-                
-                names.append(name)
-                feats.append(enc)
-
-    firebase_admin.delete_app(firebase_admin.get_app())                
-    return names, feats
-        
 # reid
 class ReIDManager:
     def __init__(self, chosen_model):
@@ -410,16 +356,7 @@ class ReIDManager:
             for image in self.images:
                 xyxy = np.array([[0, 0, image.shape[1], image.shape[0]]])
                 feat = chosen_model.reid.get_features(xyxy, image)
-                self.feats.append(feat) 
-            
-            # read from live database register    
-            live_names, live_feats = read_live_database()
-            if False and len(live_names) > 0:
-                if self.feats[0].shape == live_feats[0].shape:
-                    self.names += live_names
-                    self.feats += live_feats            
-                else:
-                    print('Shape of face encodings from local and live database should match!')
+                self.feats.append(feat)             
             
             # convert to tensor
             self.feats = torch.from_numpy(np.concatenate(self.feats, axis=0))        
@@ -710,7 +647,7 @@ def predict_and_detect(chosen_model, track_history, img, classes=[], conf=0.5):
 
     if chosen_model.my_counter is not None:  
         # counter
-        chosen_model.my_counter.update(img_shape, results[0], reid_dict, ref)
+        chosen_model.my_counter.update(img_shape, results[0], reid_dict, None)
     
         # draw roi
         annotated_frame = paste_image(chosen_model, img_ori, annotated_frame)
