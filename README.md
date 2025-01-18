@@ -60,6 +60,16 @@ pip3 install gspread==5.12.2
 pip3 install oauth2client==4.1.3
 ```
 
+### Get the pretrained models
+```bash
+curl -L -o "yolov8m_face.pt" "https://www.dropbox.com/scl/fi/f40lcj4pyushbrylrbptt/yolov8m_face.pt?rlkey=83b5timdj39ij7j87irpisaua&st=h2zavfx5&dl=0"
+```
+
+```bash
+curl -L -o "backbone_90000_vggface2.onnx" "https://www.dropbox.com/scl/fi/ho9xa74ri1vb2tuepe271/backbone_90000_vggface2.onnx?rlkey=vmitga1ecpnv051r1m0p0mpsw&st=aulfs3j4&dl=0"
+```
+
+
 ### Find port number connected to camera
 ```bash
 python3 find_port.py
@@ -133,7 +143,7 @@ python3 multi_track.py --geofencing
 ```
 
 To enable face recognition (fr) to tracking, just add `--fr`
-```
+```bash
 # for multi track
 python3 multi_track.py --fr
 python3 multi_track.py --geofencing --fr
