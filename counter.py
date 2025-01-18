@@ -237,25 +237,6 @@ class Counter:
                     # code or API. In our case, we run python3 rush.py
                     # to update the database.
                     #-----------------------------------------------------
-                    '''
-                    print(reid_dict[id])
-                    current_time = datetime.datetime.now()
-                    current_time = current_time + datetime.timedelta(seconds=30)
-                    current_time = current_time.strftime('%H:%M:%S')
-                    print(current_time)
-                    person_data = {
-                        'ID': '2005755',
-                        'Name': 'Allex',
-                        'Time': '13:02:35'
-                    }                    
-
-                    # Save to a JSON file
-                    with open('data.json', 'w') as f:
-                        json.dump(person_data, f)
-     
-                    command = 'python3 push.py'
-                    #run_command(command)
-                    '''
                     pass
                     
         
