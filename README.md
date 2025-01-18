@@ -129,17 +129,13 @@ Multi stream tracking
 ```bash
 # with geofencing
 python3 multi_track.py --geofencing
+
+# with geofencing and face recognition
+python3 multi_track.py --geofencing --fr
 ```
 
 ⚠️ Please just use `multi_track.py` even if you only have one stream. To do so, just kindly put only one source/geofencing in the `source.streams` and `geofencing.streams` files. Also, we optimized the inference speed for geofencing by cropping out only the geofencing region (and its outside border) to avoid unnecessary trackings. Hence, the code only works with geofencing. If you do not want to set a geofencing, just set the geofencing region to be `0,0,1,1` in the `geofencing.streams` file, which means the entire frame.
 
-
-To enable face recognition (fr) to tracking, just add `--fr`
-```bash
-# for multi track
-python3 multi_track.py --fr
-python3 multi_track.py --geofencing --fr
-```
 
 ## ⁉️ Known Issue(s)
 
