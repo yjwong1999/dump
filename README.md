@@ -132,6 +132,13 @@ python3 multi_track.py
 python3 multi_track.py --geofencing
 ```
 
+To enable face recognition (fr) to tracking, just add `--fr`
+```
+# for multi track
+python3 multi_track.py --fr
+python3 multi_track.py --geofencing --fr
+```
+
 ## ⁉️ Known Issue(s)
 
 ### 1. ONNXRuntimeError ... Failed to create CUDAExecutionProvider
