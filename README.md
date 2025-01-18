@@ -60,6 +60,11 @@ pip3 install gspread==5.12.2
 pip3 install oauth2client==4.1.3
 ```
 
+Install curl if you haven't already
+```bash
+sudo snap install curl
+```
+
 ### Get the pretrained models
 ```bash
 curl -L -o "yolov8m_face.pt" "https://www.dropbox.com/scl/fi/f40lcj4pyushbrylrbptt/yolov8m_face.pt?rlkey=83b5timdj39ij7j87irpisaua&st=h2zavfx5&dl=0"
