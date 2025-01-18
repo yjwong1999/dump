@@ -125,27 +125,14 @@ python3 multi_detect.py
 ```
 
 ### Tracking
-Single stream tracking
-```bash
-# Example (without geofencing)
-python3 single_track.py --webcam
-python3 single_track.py --camera 0
-python3 single_track.py --video-file sample_video.mp4
-python3 single_track.py --rtsp "rtsp://192.168.1.136:8554/"
-python3 single_track.py --youtube "http://www.youtube.com/watch?v=q0kPBRIPm6o"
-
-# Example (with geofencing)
-python3 single_track.py -video-file sample_video.mp4 --roi-xyxy 0.6,0.4,0.9,0.8
-```
-
 Multi stream tracking
 ```bash
-# without geofencing
-python3 multi_track.py
-
 # with geofencing
 python3 multi_track.py --geofencing
 ```
+
+⚠️ Please just use `multi_track.py` even if you only have one stream. To do so, just kindly put only one source/geofencing in the `source.streams` and `geofencing.streams` files. Also, we optimized the inference speed for geofencing by cropping out only the geofencing region (and its outside border) to avoid unnecessary trackings. Hence, the code only works with geofencing. If you do not want to set a geofencing, just set the geofencing region to be `0,0,1,1` in the `geofencing.streams` file, which means the entire frame.
+
 
 To enable face recognition (fr) to tracking, just add `--fr`
 ```bash
