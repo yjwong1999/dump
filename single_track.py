@@ -32,20 +32,26 @@ parser.add_argument('--rtsp', type=str, default=None, help='rtsp link')         
 parser.add_argument('--youtube', type=str, default=None, help='youtube link')         # example: "http://www.youtube.com/watch?v=q0kPBRIPm6o"
 parser.add_argument('--roi-xyxy', type=str, default=None, help='x1y1x2y2 of geofencing region of interest (in range 0 to 1), i.e.: [0.3,0.5,0.3,0.5]')
 parser.add_argument('--stream-idx', type=int, default=0, help='Index for this video streaming')
+parser.add_argument('--fr', action='store_true', help='Activate face recognition')
 opt = parser.parse_args()
 
 # Define the source
-WEBCAM = opt.webcam
-CAMERA = opt.camera
-VIDEO_FILE = opt.video_file
-RTSP = opt.rtsp
-YOUTUBE = opt.youtube # need ssl to be set
+STREAM_IDX = opt.stream_idx	# the index for this streaming
+WEBCAM     = opt.webcam		# is webcam source
+CAMERA     = opt.camera		# is camera source
+VIDEO_FILE = opt.video_file	# is video file (.mp4, .avi, etc)
+RTSP       = opt.rtsp		# is RSTP video streaming link
+YOUTUBE    = opt.youtube 	# PENDING, need ssl to be set
 
-# Other arguments
-ROI_XYXY   = opt.roi_xyxy
-STREAM_IDX = opt.stream_idx
-SAVE       = False
-THRESH     = 0.35
+# Geofencing arguments
+ROI_XYXY   = opt.roi_xyxy	# geofencing x1,y1,x2,y2 zone
+
+# Detection arguments
+SAVE       = False		# save detected face
+
+# Recognition arguments
+FR         = opt.fr		# activate face recognition (FR) or not
+THRESH     = 0.35		# face recognition threshold
 
 #------------------------------------------------------------------------------------------------------
 # Video streaming
@@ -683,8 +689,10 @@ def predict_and_detect(chosen_model, track_history, img, classes=[], conf=0.5):
         return img, results
 
     # reid
-    reid_dict = chosen_model.reid_manager.matching(track_ids, xyxys, img)
-    reid_dict = None
+    if FR:
+        reid_dict = chosen_model.reid_manager.matching(track_ids, xyxys, img)
+    else:
+        reid_dict = None
 
     # visualize
     annotated_frame = results[0].plot(reid_dict)
