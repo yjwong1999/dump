@@ -229,6 +229,15 @@ class Counter:
                 self.move_in[id] = datetime.datetime.now()
                 del self.buffer_out[id]
                 if (reid_dict is not None) and (ref is not None):
+                    #-----------------------------------------------------
+                    # This code is to update the cloud database that
+                    # someone is detected and recognized. However,
+                    # we will not be sharing the code here because it is 
+                    # experimental. You can just change it to your own 
+                    # code or API. In our case, we run python3 rush.py
+                    # to update the database.
+                    #-----------------------------------------------------
+                    '''
                     print(reid_dict[id])
                     current_time = datetime.datetime.now()
                     current_time = current_time + datetime.timedelta(seconds=30)
@@ -246,6 +255,8 @@ class Counter:
      
                     command = 'python3 push.py'
                     #run_command(command)
+                    '''
+                    pass
                     
         
         # clear buffer
@@ -270,4 +281,3 @@ class Counter:
             # reset
             self.current_date = now.date()
             self.reset()
-
