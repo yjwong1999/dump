@@ -2,7 +2,7 @@
 
 Efficient YOLOv8 inference + Face recognition using onnx runtime
 
-## System Design
+## 📝 System Design
 
 - `npy files` </br>
 There is a list of `.npy` files in the system. These `.npy` files consist of the embeddings of blurred or unrecognizable faces that previous FYP students have identified. These embeddings can slightly reduce the likelihood of the system misidentifying all blurry faces as a certain student's identity.
@@ -25,7 +25,7 @@ This file lists down all geofencing windows (one for each line) in normalized x1
 - `register` </br>
 To store the faces of all users registered to the database.
 
-## Setup
+## ⌛ Setup
 Conda environment
 ```bash
 conda create --name new python=3.8.10 -y
@@ -57,30 +57,30 @@ pip3 install gspread==5.12.2
 pip3 install oauth2client==4.1.3
 ```
 
-## Find port number connected to camera
+### Find port number connected to camera
 ```bash
 python3 find_port.py
 ```
 
-## If you are doing multi-stream
+### If you are doing multi-stream
 ```
 1. List all the sources in source.streams
 2. If you are doing tracking + geofencing, list the geofencing roi xyxy in geofencing.streams
 ```
 
-## Install VLC player to simulate rtsp streaming
+### Install VLC player to simulate rtsp streaming
 ```bash
 sudo snap install vlc
 ```
 
-## Setup the source.streams file
+### Setup the source.streams file
 ```
 <each line is one video source or rtsp streams link>
 ...
 ```
 
 
-## Setup the geofencing.streams
+### Setup the geofencing.streams
 Each line should represent the corresponding geofencing zone for the video source in the `source/streams` file. The geofencing format should be <x1,y1,x2,y2> in normalized format (in 0 to 1 range), WITHOUT SPACING. Example of geofencing format is shown below:
 <img src="assets/x1y1x2y2.jpg" width="700"/> </br>
 Hence, for the above geofencing zone, we should write
@@ -89,8 +89,9 @@ Hence, for the above geofencing zone, we should write
 ... (if got other geofencing zone, each per line)
 ```
 
+## 💻 Run the codes!
 
-## Detection
+### Detection
 Single stream detection
 ```bash
 python3 single_detect.py --webcam
@@ -105,7 +106,7 @@ Multi stream detection
 python3 multi_detect.py
 ```
 
-## Tracking
+### Tracking
 Single stream tracking
 ```bash
 # Example (without geofencing)
@@ -128,7 +129,7 @@ python3 multi_track.py
 python3 multi_track.py --geofencing
 ```
 
-## Known Issue(s)
+## ⁉️ Known Issue(s)
 
 ### 1. ONNXRuntimeError ... Failed to create CUDAExecutionProvider
 
