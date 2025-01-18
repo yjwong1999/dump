@@ -79,8 +79,8 @@ cap = get_cap()
 # resize your input video frame size (smaller -> faster, but less accurate)
 frame_width = int(cap.get(3))
 frame_height = int(cap.get(4))
-resize_width = 720   # Adjust based on your needs
-resize_height = 480  # Adjust based on your needs
+resize_width = 720   # Adjust based on your needs, suggest to 720p to improve face recognition
+resize_height = 480  # Adjust based on your needs, suggest to 720p to improve face recognition
 if frame_width > 0:
     resize_height = int((resize_width / frame_width) * frame_height)
 
