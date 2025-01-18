@@ -26,6 +26,9 @@ This file lists down all geofencing windows (one for each line) in normalized x1
 To store the faces of all users registered to the database.
 
 ## ⌛ Setup
+
+### Setting up the dependencies and environments
+
 Conda environment
 ```bash
 conda create --name new python=3.8.10 -y
