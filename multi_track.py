@@ -67,6 +67,10 @@ def main(opt):
                 continue
             else:
                 raise NotImplementedError
+                
+        # if activate face recognition
+        if opt.fr:
+            command += ' --fr'
 
         # if geofencing
         if opt.geofencing:
@@ -88,6 +92,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--geofencing', action='store_true',
                         help='if flagged, activate geofencing')
+    parser.add_argument('--fr', action='store_true', 
+                        help='Activate face recognition')
     opt = parser.parse_args()
 
     main(opt)
