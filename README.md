@@ -140,3 +140,16 @@ python3 multi_track.py --geofencing
 2. tips for effecient single-stream detection (multithread, resize frame, skipping frame) [[ref]](https://blog.stackademic.com/step-by-step-to-surveillance-innovation-pedestrian-detection-with-yolov8-and-python-opencv-dbada14ca4e9)
 3. multi-thread for multi-stream detection [[ref]](https://ultralytics.medium.com/object-tracking-across-multiple-streams-using-ultralytics-yolov8-7934618ddd2)
 4. Tracking with Ultralytics YOLO (how to handle the results) [[ref]](https://docs.ultralytics.com/modes/track/#plotting-tracks-over-time)
+
+## Cite this repository
+```
+@INPROCEEDINGS{10174362,
+  author={Wong, Yi Jie and Huang Lee, Kian and Tham, Mau-Luen and Kwan, Ban-Hoe},
+  booktitle={2023 IEEE World AI IoT Congress (AIIoT)}, 
+  title={Multi-Camera Face Detection and Recognition in Unconstrained Environment}, 
+  year={2023},
+  volume={},
+  number={},
+  pages={0548-0553},
+  doi={10.1109/AIIoT58121.2023.10174362}}
+```
