@@ -128,6 +128,9 @@ python3 multi_track.py
 python3 multi_track.py --geofencing
 ```
 
+## Train your own custom Face recognition model
+We used our [code](https://github.com/yjwong1999/Yolov5_DeepSort_Face) to train a custom face recognition model on SurvFace dataset, and export it to onnx. Generally, I believe you can use any model, and just export it to onnx, then use it here.
+
 ## TODO
 - [ ] cannot play youtube yet
 - [ ] drive handling fails for multiple source
