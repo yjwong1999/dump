@@ -331,103 +331,104 @@ class ReIDManager:
         self.alive_thresh = 5
         self.blur_ids = []
         self.prev_id = []        
-        
-        # temp variable
-        temp = []
-        
-        #---------------------------------
-        # embedding blur database x
-        #---------------------------------
-        # if got previous embedding database x
-        if STREAM_IDX in [0, 4]:
-            npy_file_path = f"{STREAM_IDX}_x.npy"
-        else:
-            npy_file_path = "0_x.npy" # we have not extracted the blur id for the remaining streams
-        loaded_data = np.load(npy_file_path)         
-        
-        # define the blur ids
-        if int(STREAM_IDX) == 0:                
-            blur_ids = [6, 1, 5]
-        elif int(STREAM_IDX) == 4:
-            blur_ids = [1, 2, 9]
-        else:
-            blur_ids = [6, 1, 5] # dummy
-        
-        # get all blur ids as temp        
-        for i in blur_ids:
-            x = loaded_data[i]
-            x = np.expand_dims(x, axis=0)
-            temp.append(x)        
-        
-        #---------------------------------
-        # embedding blur database y
-        #---------------------------------        
-        # if got previous embedding database y
-        if STREAM_IDX in [0, 2, 4]:
-            npy_file_path = f"{STREAM_IDX}_y.npy"
-        else:
-            npy_file_path = "0_y.npy" # we have not extracted the blur id for the remaining streams
-        loaded_data = np.load(npy_file_path)    
 
-        # define the blur ids
-        if int(STREAM_IDX) == 0:                
-            blur_ids = [5 ,6, 9, 11, 615]
-        elif int(STREAM_IDX) == 2:
-            blur_ids = [15, 192, 252]
-        elif int(STREAM_IDX) == 4:
-            blur_ids = [7, 8, 10, 11]
-        else:
-            blur_ids = [6, 1, 5] # dummy
-               
-        # get all blur ids as temp        
-        for i in blur_ids:
-            x = loaded_data[i]
-            x = np.expand_dims(x, axis=0)
-            temp.append(x)           
-
-        #---------------------------------
-        # combined blur databases
-        #---------------------------------           
-        # convert these ids to feat_database
-        temp = np.concatenate(temp, axis=0)
-        np.save(f"{STREAM_IDX}_combined.npy", temp)  
-        self.feat_database = torch.tensor(temp)
-        
-        print(STREAM_IDX, self.feat_database.shape)
-        
-        # store the unblur ids for future reference
-        self.blur_ids = [i for i in range(len(temp))]
-        self.total_unique_id = len(self.blur_ids)
-        
-
-        #---------------------------------
-        # combined database with registered image
-        #---------------------------------       
-        # read from local database register 
-        self.images, self.names = self.read_images_from_directory()
-        self.feats = []
-        for image in self.images:
-            xyxy = np.array([[0, 0, image.shape[1], image.shape[0]]])
-            feat = chosen_model.reid.get_features(xyxy, image)
-            self.feats.append(feat) 
-        
-        # read from live database register    
-        live_names, live_feats = read_live_database()
-        if False and len(live_names) > 0:
-            if self.feats[0].shape == live_feats[0].shape:
-                self.names += live_names
-                self.feats += live_feats            
+        if FR:
+            # temp variable
+            temp = []
+            
+            #---------------------------------
+            # embedding blur database x
+            #---------------------------------
+            # if got previous embedding database x
+            if STREAM_IDX in [0, 4]:
+                npy_file_path = f"{STREAM_IDX}_x.npy"
             else:
-                print('Shape of face encodings from local and live database should match!')
-        
-        # convert to tensor
-        self.feats = torch.from_numpy(np.concatenate(self.feats, axis=0))        
-
-        self.feat_database = torch.cat((self.feat_database, self.feats), axis=0)
-        self.total_unique_id += len(self.names)
-        
-        self.feat_database = self.feats
-        self.blur_ids = []
+                npy_file_path = "0_x.npy" # we have not extracted the blur id for the remaining streams
+            loaded_data = np.load(npy_file_path)         
+            
+            # define the blur ids
+            if int(STREAM_IDX) == 0:                
+                blur_ids = [6, 1, 5]
+            elif int(STREAM_IDX) == 4:
+                blur_ids = [1, 2, 9]
+            else:
+                blur_ids = [6, 1, 5] # dummy
+            
+            # get all blur ids as temp        
+            for i in blur_ids:
+                x = loaded_data[i]
+                x = np.expand_dims(x, axis=0)
+                temp.append(x)        
+            
+            #---------------------------------
+            # embedding blur database y
+            #---------------------------------        
+            # if got previous embedding database y
+            if STREAM_IDX in [0, 2, 4]:
+                npy_file_path = f"{STREAM_IDX}_y.npy"
+            else:
+                npy_file_path = "0_y.npy" # we have not extracted the blur id for the remaining streams
+            loaded_data = np.load(npy_file_path)    
+    
+            # define the blur ids
+            if int(STREAM_IDX) == 0:                
+                blur_ids = [5 ,6, 9, 11, 615]
+            elif int(STREAM_IDX) == 2:
+                blur_ids = [15, 192, 252]
+            elif int(STREAM_IDX) == 4:
+                blur_ids = [7, 8, 10, 11]
+            else:
+                blur_ids = [6, 1, 5] # dummy
+                   
+            # get all blur ids as temp        
+            for i in blur_ids:
+                x = loaded_data[i]
+                x = np.expand_dims(x, axis=0)
+                temp.append(x)           
+    
+            #---------------------------------
+            # combined blur databases
+            #---------------------------------           
+            # convert these ids to feat_database
+            temp = np.concatenate(temp, axis=0)
+            np.save(f"{STREAM_IDX}_combined.npy", temp)  
+            self.feat_database = torch.tensor(temp)
+            
+            print(STREAM_IDX, self.feat_database.shape)
+            
+            # store the unblur ids for future reference
+            self.blur_ids = [i for i in range(len(temp))]
+            self.total_unique_id = len(self.blur_ids)
+            
+    
+            #---------------------------------
+            # combined database with registered image
+            #---------------------------------       
+            # read from local database register 
+            self.images, self.names = self.read_images_from_directory()
+            self.feats = []
+            for image in self.images:
+                xyxy = np.array([[0, 0, image.shape[1], image.shape[0]]])
+                feat = chosen_model.reid.get_features(xyxy, image)
+                self.feats.append(feat) 
+            
+            # read from live database register    
+            live_names, live_feats = read_live_database()
+            if False and len(live_names) > 0:
+                if self.feats[0].shape == live_feats[0].shape:
+                    self.names += live_names
+                    self.feats += live_feats            
+                else:
+                    print('Shape of face encodings from local and live database should match!')
+            
+            # convert to tensor
+            self.feats = torch.from_numpy(np.concatenate(self.feats, axis=0))        
+    
+            self.feat_database = torch.cat((self.feat_database, self.feats), axis=0)
+            self.total_unique_id += len(self.names)
+            
+            self.feat_database = self.feats
+            self.blur_ids = []
         
 
     def read_images_from_directory(self, directory_path='register', target_size=(112, 112), image_extensions=None):
