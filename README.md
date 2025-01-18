@@ -128,6 +128,31 @@ python3 multi_track.py
 python3 multi_track.py --geofencing
 ```
 
+## Known Error(s)
+
+### 1. ONNXRuntimeError ... Failed to create CUDAExecutionProvider
+
+This error indicates that something is wrong with the ONNX Runtime. For context, we use the ONNX GPU runtime to speed up some parts of our pipeline. When this error occurs, it means that the ONNX Runtime cannot access our GPU. This could indicate either a GPU problem or an ONNX Runtime problem. </br>
+
+Generally, we suggest reinstalling CUDA to `12.6` or `12.2`, followed by reinstalling the ONNX Runtime using the following commands:
+
+```
+pip uninstall onnxruntime-gpu
+pip install onnxruntime-gpu==1.17.0 --index-url=https://pkgs.dev.azure.com/onnxruntime/onnxruntime/_packaging/onnxruntime-cuda-12/pypi/simple
+```
+
+If this doesn't work, then try the following commands:
+
+```
+pip uninstall onnxruntime-gpu
+pip install onnxruntime-gpu --extra-index-url https://aiinfra.pkgs.visualstudio.com/PublicPackages/_packaging/onnxruntime-cuda-12/pypi/simple/
+```
+
+Note that this is an iterative debugging process. If these steps still do not work, please refer to [onnxruntime documentation](https://onnxruntime.ai/docs/get-started/with-python.html) for the most up-to-date installation process. Warning: Newer steps do not guarantee that things will work, because the pipeline is based on the current interdependent components (dependencies). Therefore, please follow the steps above first, as these steps are more well-studied.
+
+Else, please downgrade CUDA to `11.X`, then follow the onnx-runtime installation for cuda 11.X versions.
+
+
 ## Train your own custom Face recognition model
 We used our [code](https://github.com/yjwong1999/Yolov5_DeepSort_Face) to train a custom face recognition model on SurvFace dataset, and export it to onnx. Generally, I believe you can use any model, and just export it to onnx, then use it here.
 
