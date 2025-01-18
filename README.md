@@ -128,7 +128,7 @@ python3 multi_track.py
 python3 multi_track.py --geofencing
 ```
 
-## Known Error(s)
+## Known Issue(s)
 
 ### 1. ONNXRuntimeError ... Failed to create CUDAExecutionProvider
 
@@ -153,7 +153,7 @@ Note that this is an iterative debugging process. If these steps still do not wo
 Else, please downgrade CUDA to `11.X`, then follow the onnx-runtime installation for cuda 11.X versions.
 
 
-## Train your own custom Face recognition model
+### 2. Train your own custom Face recognition model
 We used our [code](https://github.com/yjwong1999/Yolov5_DeepSort_Face) to train a custom face recognition model on SurvFace dataset, and export it to onnx. Generally, I believe you can use any model, and just export it to onnx, then use it here.
 
 ## TODO
