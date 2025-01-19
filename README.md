@@ -177,6 +177,7 @@ We used our [code](https://github.com/yjwong1999/Yolov5_DeepSort_Face) to train 
 2. tips for effecient single-stream detection (multithread, resize frame, skipping frame) [[ref]](https://blog.stackademic.com/step-by-step-to-surveillance-innovation-pedestrian-detection-with-yolov8-and-python-opencv-dbada14ca4e9)
 3. multi-thread for multi-stream detection [[ref]](https://ultralytics.medium.com/object-tracking-across-multiple-streams-using-ultralytics-yolov8-7934618ddd2)
 4. Tracking with Ultralytics YOLO (how to handle the results) [[ref]](https://docs.ultralytics.com/modes/track/#plotting-tracks-over-time)
+5. Safety video from [this repo](https://github.com/intel-iot-devkit/safety-gear-detector-python)
 
 ## Cite this repository
 ```
