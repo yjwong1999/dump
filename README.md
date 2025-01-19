@@ -25,6 +25,8 @@ This file lists down all geofencing windows (one for each line) in normalized x1
 - `register` </br>
 To store the faces of all users registered to the database.
 
+<img src="assets/counting_logic.jpg" width="600"/> </br>
+
 ## ⌛ Setup
 
 ### Setting up the dependencies and environments
