@@ -76,6 +76,14 @@ curl -L -o "yolov8m_face.pt" "https://www.dropbox.com/scl/fi/f40lcj4pyushbrylrbp
 curl -L -o "backbone_90000_vggface2.onnx" "https://www.dropbox.com/scl/fi/ho9xa74ri1vb2tuepe271/backbone_90000_vggface2.onnx?rlkey=vmitga1ecpnv051r1m0p0mpsw&st=aulfs3j4&dl=0"
 ```
 
+### Get IDP videos and Face register (recorded by IDP students)
+```bash
+curl -L -o "video-idp.mp4" "https://www.dropbox.com/scl/fi/2pyagmb9mcz140nv9kmnn/video-idp.mp4?rlkey=vkq1122k63vjv92nj7pae2t0d&st=nld8q3bp&dl=0"
+
+curl -L -o "register.zip" "https://www.dropbox.com/scl/fi/zlagp1gz6v10oc4fzeil5/register.zip?rlkey=8j5djgnd7yds3aqpbar7gch2x&st=85kdme99&dl=0"
+unzip "register.zip"
+```
+
 
 ### Find port number connected to camera
 ```bash
